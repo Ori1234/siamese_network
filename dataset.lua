@@ -85,9 +85,13 @@ function mnist.load_siamese_dataset_subset(filename, class_subset)
   local mean = data:mean()
   data:add(-mean);
   data:mul(1.0/std);
-    
-
+  
+  --TODO: complete this by conditioning on the use of gpu (this version) or cpu (previous version)
+  torch.setdefaulttensortype('torch.FloatTensor')
   shuffle = torch.randperm(data:size(1))
+  torch.setdefaulttensortype('torch.CudaTensor')
+  shuffle=shuffle:cuda()
+
   max_index = data:size(1)
   if max_index % 2 ~= 0 then
     max_index = max_index - 1
