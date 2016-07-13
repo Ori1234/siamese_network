@@ -39,6 +39,7 @@ run_on_cuda = false
 if params.gpu then
     print("using cudnn")
     require 'cudnn'
+    require 'cunn'
     libs['SpatialConvolution'] = cudnn.SpatialConvolution
     libs['SpatialMaxPooling'] = cudnn.SpatialMaxPooling
     libs['ReLU'] = cudnn.ReLU
